@@ -1,0 +1,11 @@
+---
+title: "embed flexdashboard in pkgdown site"
+author: '@Rami_Krispin'
+date: "9/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
