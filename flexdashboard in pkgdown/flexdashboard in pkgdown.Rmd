@@ -9,85 +9,52 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In the previous post, I demonstrated how to deploy a flexdashboard (or basically, any R Markdown format) in Github Pages. This post is focusing on embedding flexdashboard on pkgdown site. The pkgdown package is another great R Markdown format that enables us to quickly warp package information (documentation, vignettes, etc.) into a web format. 
+In the previous [post](https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/), I demonstrated how to deploy a flexdashboard dashboard (or basically, any R Markdown format) in [Github Pages](https://pages.github.com/). The focus of this post is on embedding flexdashboard oin pkgdown site. The **pkgdown** [package](https://pkgdown.r-lib.org/) is another great R Markdown format that enables us to quickly warp package information (documentation, vignettes, etc.) into a web format. 
+
+![](/Users/ramikrispin/R/packages/blogs_draft/flexdashboard in pkgdown/example.gif)
 
 ### Motivation
 
-Why would you like to embed flexdashboard in a pkgdown site? There few reasons that I can think about, for example:
+Why would you like to embed a flexdashboard dashboard in a pkgdown site? There are few reasons that I can think about, for example:
 
 * Provide a summary and analysis of the package datasets
-* Demonstrate use case of the package functionality
+* Demonstrate the use case of the package functionality
 
-My motivation for embedding flexdashboard into my pkgdown site was the first. A few weeks ago, while I was working on the coronavirus and covid19italy packages, I created a dashboard for each package with flexdashboard. As flexdashboard is another R Markdown format, I was looking for a method to render flexdashboard as one of the package vignettes. That did not work (or render) as I expected, but I found a workaround for that using the HTML iframe function.
+My motivation for embedding flexdashboard into my pkgdown site was the first option above. A few weeks ago, while I was working on the [coronavirus](https://github.com/RamiKrispin/coronavirus) and [covid19italy](https://github.com/RamiKrispin/covid19Italy) packages, I created a dashboard for each package with flexdashboard ([Coronavirus](https://ramikrispin.github.io/coronavirus_dashboard/) and [Covid19 Italy](https://ramikrispin.github.io/italy_dash/) dashboards). As flexdashboard is another R Markdown format, I was looking for a method to render flexdashboard as one of the package vignettes. That did not work (or render) as I expected, but I found a workaround for that by using the **HTML** `iframe` function.
 
 ### Embedding flexdashboard with iframe
 
-The iframe function is an HTML for displaying a web page within a web page. To embed flexdashboard in pkgdown website, you will need:
+The `iframe` function is an **HTML** for displaying a web page within a web page. To embed flexdashboard in pkgdown website, you will need:
 
 * A deployed flexdashboard with access URL (see this post for instruction for deployment of flexdashboard on Github Pages)
 * A rendered pkgdown
 
-Once you have an end URL for the deployed flexdashboard, it is straightforward to deploy it by creating a dedicated vignette for embedding the dashboard as an article. The following example demonstrate step-by-step how to do it. We will start by creating a vignette, using the `use_vignette` function from the [usethis](https://usethis.r-lib.org/) package inside your package project:
+Once you have an end URL for the deployed flexdashboard dashboard (or generally any R Markdown format, Shiny app or any website), it is straightforward to deploy it by creating a dedicated vignette for embedding the dashboard as an article. The following example demonstrate step-by-step how to do it. We will start by creating a new vignette to host the dashboard. We will use the `use_vignette` function from the [usethis](https://usethis.r-lib.org/) package inside your package project:
 
 ``` r
 usethis::use_vignette(name = "dashboard", title = "Your Dashboard Name")
 ```
 
-This will create a R Markdown file `dashboard.Rmd` file inside the `vignettes` folder:
+This function created an R Markdown tembplate file named `dashboard.Rmd` inside the `vignettes` folder:
 
-``` Rmarkdown
-    ---
-    title: "Your Dashboard Name"
-    output: rmarkdown::html_vignette
-    vignette: >
-      %\VignetteIndexEntry{Your Dashboard Name}
-      %\VignetteEngine{knitr::rmarkdown}
-      %\VignetteEncoding{UTF-8}
-    ---
-    
-    ```{r, include = FALSE}
-    knitr::opts_chunk$set(
-      collapse = TRUE,
-      comment = "#>"
-    )
-    ```
-    
-    
-  
+```{r echo = FALSE, comment = ""}
+cat(htmltools::includeText("vignette1.Rmd"))
 ```
 
+Next, we will edit the vignette template by removing the **R** code chunks with basic **HTML** code, setting `iframe` function:
 
-The following example, from the covid19italy package, demonstrated the embedding of the Covid19 Italy Dashboard via a vignette:
-
-`dashboard.Rmd`
-
-``` Rmarkdown
-    ---
-    title: "Covid19 Italy Dashboard"
-    output: rmarkdown::html_vignette
-    vignette: >
-      %\VignetteIndexEntry{intro}
-      %\VignetteEngine{knitr::rmarkdown}
-      %\VignetteEncoding{UTF-8}
-    ---
-    
-    <style>
-    .dashboard {
-      position: fixed;
-      left: 0;
-      top: 50px;
-      bottom: 0;
-      right: 0;
-    }
-    .dashboard iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    </style>
-    
-    <div class="dashboard"> 
-    <iframe src="https://ramikrispin.github.io/italy_dash/">
-    </iframe>
-    </div>
+```{r echo = FALSE, comment = ""}
+cat(htmltools::includeText("vignette2.Rmd"))
 ```
+
+The **HTML** code has two components, `style`, and `iframe`. As the name implies, the `style` component set the page style and layout (position, size, etc.). The current setting will display the dashboard in full size. In the `iframe` component, you simply need to set the flexdashboard URL address. 
+
+Once rendering the pkgdown files with the `build_site` function, you should be able to view the dashboard under the article tab.
+
+Here is an example for using this method for embedding the Covid19 Italy Dashboard on the covid19italy pkgdown website:
+
+* Dashboard - https://ramikrispin.github.io/italy_dash/
+* Vignette - https://github.com/RamiKrispin/covid19Italy/blob/master/vignettes/dashboard.Rmd
+* Pkgdown website - https://ramikrispin.github.io/covid19Italy/articles/dashboard.html
+
+
