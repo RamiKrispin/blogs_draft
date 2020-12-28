@@ -1,0 +1,209 @@
+---
+title: "Introduction to the sfo package"
+author: '@Rami_Krispin'
+date: "12/27/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
+```
+
+Happy to announce (in one month delay) a new package - [sfo](https://ramikrispin.github.io/sfo/index.html), which provides monthly statistics of the air passenger traffic at San Francisco International (SFO) airport. The package is available on [CRAN](https://cran.r-project.org/web/packages/sfo/index.html). 
+
+Additional information available:
+
+* Source code - https://github.com/RamiKrispin/sfo
+* Package site - https://ramikrispin.github.io/sfo/index.html
+* Vignettes - https://ramikrispin.github.io/sfo/articles
+* Data source - San Francisco Open Data [portal](https://datasf.org/opendata/)
+
+
+
+The package provides the following two datasets:
+
+-   `sfo_passengers` - air traffic passengers statistics
+
+-   `sfo_stats` - air traffic landing statistics
+
+The package also provides the `sankey_ly` function, a **plotly** wrapper that automatically creates the data transformation, and a Sankey plot with **plotly**.
+
+This post focuses on analyzing the `sfo_passengers` dataset.
+
+### sfo_passengers
+
+The sfo_passengers dataset provides monthly statistics about the air traffic passengers in San Francisco International Airport between July 2005 and September 2020. That includes monthly information on the total number of passengers arriving or departing from SFO by airline operator, geographic type (domestic and international), and region (e.g., US, Europe, Mexico, Asia):
+
+```{r}
+
+library(sfo)
+
+data("sfo_passengers")
+
+str(sfo_passengers)
+
+```
+
+This dataset enables us to answer questions about the passengers' flights characteristics at SFO, such as:
+
+-   How many passengers traveling every month at SFO airport
+
+-   What is the airlines' operators distribution
+
+-   Flights geographic distribution
+
+The examples below demonstrated how to summarise and visualize the data to answer those types of questions.
+
+#### Monthly number of passengers
+
+To see the greater picture, it is always nice to start with a time-series view of the total number of passengers at SFO. Before starting, let's reformat the activity_period variable into a Date object:
+
+```{r}
+
+
+sfo_passengers$date <- as.Date(paste(substr(sfo_passengers$activity_period, 1,4), 
+                                     substr(sfo_passengers$activity_period, 5,6), 
+                                     "01", sep ="/"))
+
+```
+
+We set the first day of the month as the default day of the date object.
+
+Next, we will use the **dplyr** package to aggregate the data by the date object, and visualize the output with the **plotly** package:
+
+```{r}
+library(dplyr)
+library(plotly)
+
+df_total <- sfo_passengers %>%
+  group_by(date) %>%
+  summarise(total = sum(passenger_count))
+
+head(df_total)
+
+
+plot_ly(data = df_total,
+        x = ~ date,
+        y = ~ total,
+        type = "scatter",
+        mode = "lines") %>%
+  layout(title = "Monthly Air Traffic Passengers at SFO",
+         yaxis = list(title = "Number of Passengers"),
+         xaxis = list(title = "Source: San Francisco data portal (DataSF)"))
+
+```
+As can be observed in the plot above, as expected, the Covid19 significantly impacted the flights to SFO.
+
+Likewise, we can aggregate the data by the activity type (arrival, departure, transit):
+
+```{r}
+
+sfo_passengers %>%
+  group_by(date, activity_type_code) %>%
+  summarise(total = sum(passenger_count), .groups = "drop") %>%
+  as.data.frame() %>%
+  plot_ly(x = ~ date,
+          y = ~ total,
+          color = ~ activity_type_code,
+          type = "scatter",
+          mode = "lines") %>%
+  layout(title = "Monthly Air Traffic Passengers at SFO by Activity Type",
+         yaxis = list(title = "Number of Passengers"),
+         xaxis = list(title = "Source: San Francisco data portal (DataSF)"),
+         legend = list(x = 0.1, y = 0.9))
+
+```
+
+#### Airlines' operators summary
+
+The dataset provides two indicators about the airline company:
+
+-   `operating_airline` filed describes the aircraft operator name, and
+
+-    `published_airline` filed describes the name of the airline that issues the ticket and books revenue
+
+In most of the cases it is the same company, in other cases, such as code-sharing operator it may two different companies. Let's review the characteristics of those variables:\
+
+```{r}
+length(unique(sfo_passengers$operating_airline))
+
+length(unique(sfo_passengers$published_airline))
+
+```
+
+You can notice that there are fewer published airlines compared to operating airlines. This potentially means that some operating airlines have lines with code sharing. For simplicity, we will focus on the `operating_airline` variable.
+
+As 2020 was no ordinary year for most of us, and in particular for the airline industry, we will focus use 2019 to explore the airline operators' distribution:
+
+```{r}
+
+d19 <- sfo_passengers %>% 
+  filter(activity_period >= 201901 & activity_period < 202001) %>%
+  group_by(published_airline, geo_summary) %>%
+  summarise(total = sum(passenger_count), .groups = "drop")
+
+head(d19)
+
+```
+
+Before we summarize the data by airlines, let's see the distribution of flights by geo type (domestic vs. international):
+
+```{r}
+d19 %>% group_by(geo_summary) %>%
+  summarise(total_geo = sum(total)) %>%
+  plot_ly(labels = ~ geo_summary,
+          values = ~ total_geo) %>%
+  add_pie(hole = 0.6)
+
+
+```
+
+Close 75% of the air passenger traffic in SFO during 2019 were domestic. That is 42M passengers out of 57.4M passengers. Let's use a [treemap](<https://plotly.com/r/treemaps/>) plot to see the distribution of passengers by airline and geo:
+
+```{r}
+ plot_ly(data = d19 %>% filter(geo_summary == "Domestic"),
+          labels = ~ published_airline, 
+          values = ~ total,
+          type = "treemap",
+          parents=  ~geo_summary,
+          domain = list(row=0),
+          name = "Domestic",
+          textinfo="label+value+percent parent") %>%
+    add_trace(data = d19 %>% filter(geo_summary == "International"),
+            labels = ~ published_airline, 
+            values = ~ total,
+            type = "treemap",
+            parents=  ~geo_summary,
+            domain = list(row=1),
+            name = "International",
+            textinfo="label+value+percent parent") %>%
+    layout(title = "Passengers Distribution During 2019 by Geo",
+      grid=list(columns=1, rows=2))
+```
+
+#### Air Traffic Summary
+
+Finally, it would be interesting to leverage the different categorical variables to create a summary plot with Sankey. We will use the `sankey_ly` function, a **plotly** wrapper that automatically creates the data transformation, and a Sankey plot with **plotly**. We will rank the top 20 airlines during 2019 and plot the passengers' distribution by the airline, travel type (domestic or international), travel geo, activity type (deplaned, enplaned, and transit), and fare type (low or other):
+
+```{r}
+rank <- sfo_passengers %>%
+  filter(activity_period >= 201901 & activity_period <= 201912) %>%
+  group_by(operating_airline) %>%
+  summarise(total = sum(passenger_count), .groups = "drop") %>%
+  arrange(-total) %>%
+  slice_head(n = 20) %>%
+  select(operating_airline)
+
+
+sfo_passengers %>%
+  filter(activity_period >= 201901 & activity_period <= 201912, operating_airline %in% rank$operating_airline) %>%
+  group_by(operating_airline, geo_summary, geo_region, activity_type_code, 
+           price_category_code, terminal) %>%
+  summarise(total = sum(passenger_count), .groups = "drop") %>%
+  sankey_ly(cat_cols = c("operating_airline","geo_summary",
+                      "geo_region", "activity_type_code",
+                      "price_category_code"),
+          num_col = "total",
+          title = "SFO Air Traffic Passenger Dist. During 2019")
+
+```
