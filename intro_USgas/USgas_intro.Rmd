@@ -14,9 +14,9 @@ Happy to announce that the [USgas](https://ramikrispin.github.io/USgas/) package
 * `us_total` - The US annual natural gas consumption by state-level between 1997 and 2019, and aggregate level between 1949 and 2019
 * `us_monthly` - The monthly demand for natural gas in the US between 2001 and 2020
 * `us_residential` - The US monthly natural gas residential consumption by state and aggregate level between 1989 and 2020
-T
-his package is a mirror of [USgrid](https://github.com/RamiKrispin/USgrid) package that focuses on the demand (and supply) of electricity in the US. Additional information available:
+
+This package is a mirror of the [USgrid](https://github.com/RamiKrispin/USgrid) package that focuses on electricity demand (and supply) in the US. Additional information available:
 
 * Source code - https://github.com/RamiKrispin/USgas
 * Package site - https://ramikrispin.github.io/USgas/
-* Data source - US Energy Information Administration [API](https://www.eia.gov/)
+* Data source - US Energy Information Administration, https://www.eia.gov/
