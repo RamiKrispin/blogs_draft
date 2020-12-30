@@ -6,17 +6,108 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, 
+                      fig.height=5, fig.width=8, 
+                      message=FALSE, warning=FALSE)
 ```
 
-Happy to announce that the [USgas](https://ramikrispin.github.io/USgas/) package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels). That includes  more than 100 series, monthly and year, in the following datasets:
-
-* `us_total` - The US annual natural gas consumption by state-level between 1997 and 2019, and aggregate level between 1949 and 2019
-* `us_monthly` - The monthly demand for natural gas in the US between 2001 and 2020
-* `us_residential` - The US monthly natural gas residential consumption by state and aggregate level between 1989 and 2020
+Happy to announce that the [USgas](https://ramikrispin.github.io/USgas/) package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels), with more than 100 series.
 
 This package is a mirror of the [USgrid](https://github.com/RamiKrispin/USgrid) package that focuses on electricity demand (and supply) in the US. Additional information available:
 
 * Source code - https://github.com/RamiKrispin/USgas
 * Package site - https://ramikrispin.github.io/USgas/
 * Data source - US Energy Information Administration, https://www.eia.gov/
+
+### Datasets
+
+Currently, there are three datasets in the package:
+
+* `us_monthly` - The monthly demand for natural gas in the US between 2001 and 2020
+* `us_total` - The US annual natural gas consumption by state-level between 1997 and 2019, and aggregate level between 1949 and 2019
+* `us_residential` - The US monthly natural gas residential consumption by state and aggregate level between 1989 and 2020
+
+While the first dataset describes only the US consumption, the second and third describe total and residential consumption by state, respectively. 
+
+#### Visualize the demand for natural gas
+
+The `us_monthly` dataset is a monthly series, representing the total demand (or consumption) of natural gas in the US since 2001:
+
+```{r}
+library(USgas)
+
+data("us_monthly")
+
+head(us_monthly)
+```
+Let's use **plotly** to visualize the series:
+
+```{r}
+library(plotly)
+
+plot_ly(data = us_monthly,
+        x = ~ date,
+        y = ~ y, 
+        type = "scatter",
+        mode = "line") %>%
+  layout(title = "US Monthly Natural Gas Consumption",
+         yaxis = list(title = "Million Cubic Feet"),
+         xaxis = list(title = "Source: US Energy Information Administration"))
+
+```
+
+Likewise, the `us_total` dataset provides the state (and aggregate) level total consumption of natural gas. Unfurtantully, on the state level, the data is available only in annual format (as opposed to monthly):
+
+```{r}
+data("us_total")
+
+head(us_total)
+```
+
+The following plot describes the annual demand in New England states:
+
+```{r}
+us_total %>%
+  filter(state %in% c("Connecticut", "Maine", "Massachusetts",
+                      "New Hampshire", "Rhode Island", "Vermont")) %>%
+  plot_ly(x = ~ year, 
+          y = ~ y,
+          color = ~ state, 
+          type = "scatter",
+          mode = "line") %>%
+  layout(title = "New England States Annual Demand for Natural Gas Residential Consumption",
+         yaxis = list(title = "Million Cubic Feet"),
+         xaxis = list(title = "Source: US Energy Information Administration"))
+```
+
+Last but not least is the `us_residential` dataset, which describes the monthly demand for natural gas by residential consumers:
+
+```{r}
+data("us_residential")
+
+head(us_residential)
+```
+
+Similarly, we can plot the residential demand for natural gas in the West Cost states:
+
+```{r }
+library(dplyr)
+
+
+us_residential %>%
+  filter(state %in% c("Alaska", "California",
+                             "Oregon", "Washington")) %>%
+  plot_ly(x = ~ date, 
+                  y = ~ y,
+                  color = ~ state, 
+                  type = "scatter",
+                  mode = "line") %>%
+  layout(title = "West Cost Natural Gas Residential Consumption",
+         yaxis = list(title = "Million Cubic Feet"),
+         xaxis = list(title = "Source: US Energy Information Administration"))
+
+```
+
+### Road map
+
+The goal for the next release (potentially on Q2) is to add additional series related to the demand for natural gas in the US, such as prices, supply, and production, etc.
