@@ -1,0 +1,149 @@
+---
+title: "Introduction to HTML"
+author: '@Rami_Krispin'
+date: "12/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+This is a summary of freeCodeCamp HTML [course](https://www.youtube.com/watch?v=pQN-pnXPaVg&ab_channel=freeCodeCamp.org&t=2572s)
+
+
+<h3> Getting start </h3>
+
+Simple example, plan text
+
+`index.html`
+``` html
+Hello World
+```
+
+Hello World
+
+
+### HTML tags
+
+Using tags enables to define the website layout. Tags are generally define inside smaller and greater symbols - `< TAG_NAME >`
+
+In HTML there are two types of tags:
+
+* Single tags - used to define general properties such as the page characteristics, etc. For example `<!DOCTYPE html>` which defines to the browser the type of document.
+* Pair tags - enable us to define specific properties such as text size, font, layout, etc. This type of tags use the following structure:
+`<TAG_NAME> text/code </TAG_NAME>`
+
+Typically, we will use a container tags structure, which is nested structure of pair tags:
+
+
+```html
+<TAG1>
+  <TAG2> some text... </TAG2>
+  <TAG3> some text... </TAG3>
+  <TAG4> 
+    <TAG5> some text... </TAG5>
+  </TAG4>
+</TAG1>
+```
+
+For example, in the following file, we will create three containers using the following tags:
+
+* `<html>` - this tag enables us to define defines to the browser that the nested code is HTML
+* `<head>` - enables to define the metadata container for the HTML page (such as font type and size)
+* `<body>` defines the main content of the HTML code
+
+
+
+In addition, the `<!DOCTYPE html>` defines to the browser that the doc type is HTML.
+
+`index.html`
+
+``` html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>My Website</title>
+    </head>
+<body>
+  <h1>Hello World</h1>
+</body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <h1>Hello World</h1>
+</body>
+</html>
+
+<hr/>
+
+<h3>Common tags</h4>
+
+Here are some common tags:
+
+* `<meta>` a metadata tag, enables to define the attributes and characteristics of the HTML documentation, such as `charset`, `name`, etc. This generally help the browser or search engine to classify the page.
+* `<h>` - the header tag, enables to defines the size of the header with the use of `h` + number between 1 to 6, where 1 is the biggest and 6 is the smallest. This is equivalent to Rmarkdown `#` headers. For example:
+
+``` html
+<h1> This is h1 header</h1>
+```
+<h1> This is h1 header</h1> 
+
+``` html
+<h2> This is h2 header</h2>
+```
+<h2> This is h2 header</h2> 
+
+``` html
+<h6> And this is h6 header</h6>
+```
+<h6> This is h6 header</h6> 
+
+* `<p>` defines paragraph text:
+```html
+<p> This is my paragraph </p>
+```
+<p> This is my paragraph </p>
+* `<b>` and `<i>` tags define bold and italic text, respectively. For example:
+
+``` html
+<p> This text is <b>bold</b></p>
+<p> This text is <i>italic</i>, and</p>
+<p> This text is <b><i>both bold and italic</i> </b></p>
+```
+
+<p> This text is <b>bold</b></p>
+<p> This text is <i>italic</i>, and</p>
+<p> This text is <b><i>both bold and italic</i> </b></p>
+
+* `<br/>` a break tag defines a line space (single tag)
+* `<hr/>` add a horizontal line, enables to break between two rows 
+* `<big>` and `<small>` tags increase and decrease the text size, respectively, with respect to the defined font size:
+
+``` html
+<p> This word is <big>bigger</big> and this one is <small>smaller</small><p>
+```
+
+<p> This word is <big>bigger</big> and this one is <small>smaller</small><p>
+
+* `<sub>` and `<sup>` enables to reformat the text to sub and super script:
+
+``` html
+<p>This is a <sub>sub</sub> and this one is a <sup>super</sup> script</p>
+```
+
+<p>This is a <sub>sub</sub> and this one is a <sup>super</sup> script</p>
+
+
+<h3>Comments </h3>
+
+In HTML you can comment on your code with:
+
+* `<!-- Here is your comments -->`
