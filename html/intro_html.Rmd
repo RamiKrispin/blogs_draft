@@ -147,3 +147,677 @@ Here are some common tags:
 In HTML you can comment on your code with:
 
 * `<!-- Here is your comments -->`
+
+<h3>Style and colors</h3>
+
+Adding attribute to the tag with `style` argument:
+
+``` html
+<p style = "color:green;"> Setting the text color to green </p>
+<p style = "background-color:green;"> Setting the text background color to green </p>
+```
+<p style = "color:green;"> Setting the text color to green </p>
+<p style = "background-color:green;"> Setting the text background color to green </p>
+
+In addition, the `style` argument can be use with other tags such as body, header, etc.
+
+
+<h3> Code structure </h3>
+
+A typical HTML structure:
+
+
+``` html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <header> 
+  
+  </header>
+  <main>
+    <article>
+      <section>
+        <h3> Some header</h3>
+      </section>
+    </article>
+  
+  </main>
+  <footer>
+  
+  </footer>
+</body>
+</html>
+```
+<hr/>
+
+<h3> Create a link </h3>
+
+The `herf` argument enables us to attach a link for a text:
+
+``` html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <a href="https://github.com/RamiKrispin">My Github page</a>
+</body>
+</html>
+```
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <a href="https://github.com/RamiKrispin">My Github page</a>
+</body>
+</html>
+
+
+The `target` argument enables to define the destination tab to use when clicking on the link:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <a href="https://github.com/RamiKrispin" target="_blank">My Github page</a>
+</body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <a href="https://github.com/RamiKrispin" target="_blank">My Github page</a>
+</body>
+</html>
+
+
+<h3> Linking between pages </h3>
+
+A typical HTML file structure would include the landing page file - `index.html` and additional files, one for each page. To link between those pages you can use the `href` argument:
+
+`index.html`
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <a href="page1.html">Page 1</a>
+  <a href="about.html">About me</a>
+</body>
+</html>
+```
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <a href="page1.html">Page 1</a>
+  <a href="about.html">About me</a>
+</body>
+</html>
+
+Note: 
+* If the files are not located at the same folder, you will need to specify the relative folder.
+* Similarly, you can link images to the HTML page with the `href` argument
+
+<h3>Using images </h3>
+
+The `img` tag enables to link and use images from external sources. Key arguments:
+
+* `src` - the address of the images (web or local folder)
+* `alt` - what to show if the image is missing 
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <img src="https://github.com/RamiKrispin/TSstudio/blob/master/man/figures/TSstudio%20logo.png" alt=""/>
+</body>
+</html>
+```
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <img src="https://github.com/RamiKrispin/TSstudio/blob/master/man/figures/TSstudio%20logo.png?raw=true" alt=""/>
+</body>
+</html>
+
+<br/>
+To resize the image size you can use the `width` and `height` arguments by specifying the number of pixels: 
+
+``` html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <img width ="100" height="100" src="https://github.com/RamiKrispin/TSstudio/blob/master/man/figures/TSstudio%20logo.png" alt=""/>
+</body>
+</html>
+```
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+  <img width ="100" height="100" src="https://github.com/RamiKrispin/TSstudio/blob/master/man/figures/TSstudio%20logo.png?raw=true" alt=""/>
+</body>
+</html>
+
+By default, if setting only the `width` or `height`, HTML will adjust automatically the image aspect ratio. 
+
+Similarly, you can link the image with the use of the `href` argument:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+<a href="https://github.com/RamiKrispin/TSstudio">
+  <img width ="100" height="100" src="https://github.com/RamiKrispin/TSstudio/blob/master/man/figures/TSstudio%20logo.png?raw=true" alt=""/>
+  </a>
+</body>
+</html>
+```
+
+
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+<a href="https://github.com/RamiKrispin/TSstudio">
+  <img width ="100" height="100" src="https://github.com/RamiKrispin/TSstudio/blob/master/man/figures/TSstudio%20logo.png?raw=true" alt=""/>
+  </a>
+</body>
+</html>
+
+<h3> The iframe tag </h3>
+
+The `iframe` tag enables you to embed external website as a frame in a specific page. In the following example we will embed youtube video:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/pQN-pnXPaVg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/pQN-pnXPaVg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </body>
+</html>
+
+<h3> Creating a list </h3>
+
+The `ul` and `li` tags define list object:
+
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <ul>
+      <li>Point 1</li>
+      <li>Point 2</li>
+      <li>Point 3</li>
+    </ul>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <ul>
+      <li>Point 1</li>
+      <li>Point 2</li>
+      <li>Point 3</li>
+    </ul>
+  </body>
+</html>
+
+The `ol` tag enables to set ordered list:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <ol>
+      <li>Point 1</li>
+      <li>Point 2</li>
+      <li>Point 3</li>
+    </ol>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <ol>
+      <li>Point 1</li>
+      <li>Point 2</li>
+      <li>Point 3</li>
+    </ol>
+  </body>
+</html>
+
+
+You can define the style of the list with the `type` argument.
+
+<h3> Tables </h3>
+
+The `table` tag enables to create HTML tables, where:
+
+- `tr` tag defines a new raw
+- `th` tag defines a header raw
+- `td` tag defines a regular raw
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <table>
+      <caption>My Table</caption>
+      <tr>
+        <th>one</th>
+        <th>two</th>
+        <th>three</th>
+      </tr>
+      <tr>
+        <td>four</td>
+        <td>five</td>
+        <td>six</td>
+      </tr>
+    </table>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <table>
+      <caption>My Table</caption>
+      <tr>
+        <th>one</th>
+        <th>two</th>
+        <th>three</th>
+      </tr>
+      <tr>
+        <td>four</td>
+        <td>five</td>
+        <td>six</td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+<br>
+
+The `thead` and `tbody` tags can be used to create a speration between the table head and body:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <table>
+      <thead>
+        <caption>My Table</caption>
+        <tr>
+          <th>one</th>
+          <th>two</th>
+          <th>three</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>four</td>
+          <td>five</td>
+          <td>six</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <table>
+      <thead>
+        <caption>My Table</caption>
+        <tr>
+          <th>one</th>
+          <th>two</th>
+          <th>three</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>four</td>
+          <td>five</td>
+          <td>six</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+
+<br>
+
+The `colspan` tag enables to define the number of columns to use per entry:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <table>
+      <thead>
+        <caption>My Table</caption>
+        <tr>
+          <th>one</th>
+          <th>two</th>
+          <th>three</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan ="2">four</td>
+          <td>six</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+```
+
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <table>
+      <thead>
+        <caption>My Table</caption>
+        <tr>
+          <th>one</th>
+          <th>two</th>
+          <th>three</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan ="2">four</td>
+          <td>six</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+
+<br>
+
+<h3> HTML containers </h3>
+
+In-line vs. block elements:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <a href="#">link1</a>
+    <a href="#">link2</a>
+    </hr>
+    <p>paragraph1</p>
+    <p>paragraph2</p>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <a href="#">link1</a>
+    <a href="#">link2</a>
+    <hr>
+    <p>paragraph1</p>
+    <p>paragraph2</p>
+  </body>
+</html>
+
+<br>
+
+
+The `span` and `div` tags enable to set elements in-line and in block, respectively:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <span>span1</span>
+    <span>span2</span>
+  <hr>
+    <div>div1</div>
+    <div>div2</div>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <span>span1</span>
+    <span>span2</span>
+  <hr>
+    <div>div1</div>
+    <div>div2</div>
+  </body>
+</html>
+
+<br>
+
+<h3>Inputs and forms</h3>
+
+The `input` tag enables to create different input boxs:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <!-- Text input -->
+    <div><input type="text"/>
+    <input type="text" value = "Default value..."/></div>
+    <!-- Date input -->
+    <div><input type="date"/></div>
+    <!-- Email input -->
+    <div><input type="email"/></div>
+    <!-- File input -->
+    <div><input type="file"/></div>
+    <!-- Checkbox input -->
+    <div><input type="checkbox"/>
+    <input type="checkbox"/></div>
+    <!-- Radio buttons input -->
+    <div><input name="btn" type="radio"/>
+    <input name="btn" type="radio"/></div>
+    <!-- Submit buttons input -->
+    <div><input type="submit"/></div>
+    <!-- Password input -->
+    <div><input type="password"/></div>
+    <!-- Text area input -->
+    <div><textarea rows="10" cols="10">
+    </textarea></div>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <!-- Text input -->
+    <div><input type="text"/>
+    <input type="text" value = "Default value..."/></div>
+    <!-- Date input -->
+    <div><input type="date"/></div>
+    <!-- Email input -->
+    <div><input type="email"/></div>
+    <!-- File input -->
+    <div><input type="file"/></div>
+    <!-- Checkbox input -->
+    <div><input type="checkbox"/>
+    <input type="checkbox"/></div>
+    <!-- Radio buttons input -->
+    <div><input name="btn" type="radio"/>
+    <input name="btn" type="radio"/></div>
+    <!-- Submit buttons input -->
+    <div><input type="submit"/></div>
+    <!-- Password input -->
+    <div><input type="password"/></div>
+    <!-- Text area input -->
+    <div><textarea rows="10" cols="10">
+    </textarea></div>
+  </body>
+</html>
+
+<br>
+
+The `form` tag is typically used to warp `input` tag:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <form>
+    <input type="text"/>
+    </form>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <form>
+    <input type="text"/>
+    </form>
+  </body>
+</html>
+
+<br>
+
+
+<h3>iframe</h3>
+
+The `iframe` tag enables to embed external website inside the HTML page:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <iframe src="https://ramikrispin.github.io/uswildfire/" width="500" height="500">Text to display if some iframe fail to link the website</iframe>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+    <iframe src="https://ramikrispin.github.io/uswildfire/" width="500" height="500">Text to display if some iframe fail to link the website</iframe>
+  </body>
+</html>
+
+<br>
+
+<h3>Meta tags</h3>
+
+The `meta` tag enables to define the website metadata or information:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="The website description">
+        <meta name="author" content="Me">
+        <meta name="keywords" content="Rmarkdown, R, HTML">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+  <body>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="The website description">
+        <meta name="author" content="Me">
+        <meta name="keywords" content="Rmarkdown, R, HTML">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+  <body>
+  </body>
+</html>
