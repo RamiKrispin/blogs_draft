@@ -1,0 +1,247 @@
+---
+title: "Introduction to JavaScript"
+author: '@Rami_Krispin'
+date: "1/1/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+JavaScript can be embeded in HTML file:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script type="text/javascript">
+        document.write("Hello World");
+      </script>
+  </body>
+</html>
+```
+
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script type="text/javascript">
+        document.write("Hello World");
+      </script>
+  </body>
+</html>
+
+<br>
+
+Comments in JS are made by `//` for single line and with `/* */` for multiple lines:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script type="text/javascript">
+        // Single line comments
+        /* multiple 
+           lines
+           comments */
+        document.write("Script with comments");
+      </script>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script type="text/javascript">
+        // Single line comments
+        /* multiple 
+           lines
+           comments */
+        document.write("Script with comments");
+      </script>
+  </body>
+</html>
+
+<br>
+
+The `script` tag enables us to source an external JS files. For example, we can load the `js_example.js` file from the `index.html` file:
+
+`js_example1.js`
+
+```javascript
+document.write("Sourcing JS file");
+```
+
+`index.html`
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script src="js_example1.js">
+
+      </script>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script src="js_example1.js"></script>
+  </body>
+</html>
+
+In addition, you can write HTML code within JS by using the `document.write` function.
+
+
+<h3>Variables</h3>
+
+Defining variables can be done with the `var` function:
+
+```javascript
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script type="text/javascript">
+        var str = "Some text";
+        document.write(str)
+      </script>
+  </body>
+</html>
+```
+
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script type="text/javascript">
+        var str = "Some text";
+        document.write(str)
+      </script>
+  </body>
+</html>
+
+
+<hr>
+
+Variables types:
+
+* Text string 
+* Numeric - any number (both integer and decimal)
+* Boolean - `true` or `false`
+* null - when we want to define empty value
+* undefined - as the name implies, un defined variable
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script type="text/javascript">
+        var str = "Some text";
+        var num = 10
+        var bool = true
+        var empty = null
+        var undef = undefined
+      </script>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script type="text/javascript">
+        var str = "Some text";
+        var num = 10
+        var bool = true
+        var empty = null
+        var undef = undefined
+      </script>
+  </body>
+</html>
+
+<h3>Working with strings</h3>
+
+The string variable in JS comes with functionalities that enable to extract its attributes and modify it:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script type="text/javascript">
+        var str = "Some text";
+        document.write(str.length)
+        document.write("<div>")
+        document.write(str.toUpperCase())
+        document.write("<div>")
+        document.write(str.charAt(0))
+        document.write("<div>")
+        document.write(str.indexOf("e"))
+        document.write("<div>")
+        document.write(str.lastIndexOf("e"))
+        document.write("<div>")
+        document.write(str.substring(0, 4))
+        document.write("<div>")
+        document.write(str.endsWith("text"))
+        document.write("<div>")
+        document.write(str.includes("text"))
+      </script>
+  </body>
+</html>
+```
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+  <body>
+      <script type="text/javascript">
+        var str = "Some text";
+        document.write(str.length)
+        document.write("<div>")
+        document.write(str.toUpperCase())
+        document.write("<div>")
+        document.write(str.charAt(0))
+        document.write("<div>")
+        document.write(str.indexOf("e"))
+        document.write("<div>")
+        document.write(str.lastIndexOf("e"))
+        document.write("<div>")
+        document.write(str.substring(0, 4))
+        document.write("<div>")
+        document.write(str.endsWith("text"))
+        document.write("<div>")
+        document.write(str.includes("text"))
+      </script>
+  </body>
+</html>
+
+<br>
+
+
+
